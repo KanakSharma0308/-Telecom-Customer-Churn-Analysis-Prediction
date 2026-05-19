@@ -61,7 +61,13 @@ Prediction probability
 Example input fields: gender, tenure, Contract, MonthlyCharges, InternetService, etc.
 
 🛠️ Tech Stack
-
+Category           | Libraries 
+Data Manipulation  | pandas, numpy 
+Visualization      | matplotlib, seaborn 
+Machine Learning   | scikit-learn (Decision Tree, Random Forest)
+Boosting           | xgboost 
+Imbalance Handling | imbalanced-learn (SMOTE) 
+Model Persistence  | pickle 
 
 
 🚀 Getting Started
