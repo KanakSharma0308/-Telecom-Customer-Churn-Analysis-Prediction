@@ -66,7 +66,7 @@ Example input fields: gender, tenure, Contract, MonthlyCharges, InternetService,
 
 🚀 Getting Started
 1. Clone the repository
-bashgit clone https://github.com/your-username/churn-analysis.git
+bashgit clone https://github.com/KanakSharma0308/-Telecom-Customer-Churn-Analysis-Prediction
 cd churn-analysis
 2. Install dependencies
 bashpip install pandas numpy matplotlib seaborn scikit-learn xgboost imbalanced-learn
