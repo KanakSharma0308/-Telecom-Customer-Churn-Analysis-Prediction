@@ -86,8 +86,7 @@ churn-analysis/
 │
 ├── churn_analysis.ipynb                      https://github.com/KanakSharma0308/-Telecom-Customer-Churn-Analysis-Prediction   
 ├── WA_Fn-UseC_-Telco-Customer-Churn.csv      https://www.kaggle.com/datasets/blastchar/telco-customer-churn
-├── customer_churn_model.pkl                  
-├── encoders.pkl                 
+├── customer_churn_model.pkl           https://github.com/KanakSharma0308/-Telecom-Customer-Churn-Analysis-Prediction/blob/main/customer_churn_model%20(1).pkl     ├── encoders.pkl                       https://github.com/KanakSharma0308/-Telecom-Customer-Churn-Analysis-Prediction/blob/main/encoders.pkl
 └── README.md
 
 📊 Results
