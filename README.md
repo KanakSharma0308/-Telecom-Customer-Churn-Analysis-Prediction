@@ -84,10 +84,10 @@ bashjupyter notebook churn_analysis.ipynb
 📁 Project Structure
 churn-analysis/
 │
-├── churn_analysis.ipynb          # Main notebook
-├── WA_Fn-UseC_-Telco-Customer-Churn.csv  # Dataset (add manually)
-├── customer_churn_model.pkl      # Saved Random Forest model
-├── encoders.pkl                  # Saved label encoders
+├── churn_analysis.ipynb                      https://github.com/KanakSharma0308/-Telecom-Customer-Churn-Analysis-Prediction   
+├── WA_Fn-UseC_-Telco-Customer-Churn.csv      https://www.kaggle.com/datasets/blastchar/telco-customer-churn
+├── customer_churn_model.pkl                  
+├── encoders.pkl                 
 └── README.md
 
 📊 Results
