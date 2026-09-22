@@ -1,97 +1,81 @@
-📉 Telecom Customer Churn Analysis & Prediction
-A complete end-to-end machine learning project to analyze and predict customer churn for a telecom company using the IBM Telco Customer Churn dataset.
+Telecom Customer Churn: Analysis & Prediction
+An end-to-end analysis of why telecom customers churn, and a machine learning model that flags at-risk customers before they leave. Framed as an analyst question: which customers are likely to leave, why, and what should the business do about it?
 
-📌 Problem Statement
-Customer churn — when customers stop doing business with a company — is a major challenge in the telecom industry. This project identifies the key factors driving churn and builds a predictive model to flag at-risk customers before they leave.
+Business problem
+Acquiring a new telecom customer costs far more than retaining an existing one. This project identifies the behavioral and contract-related factors that predict churn, so the business can target retention offers at the customers most likely to leave — instead of running blanket retention campaigns.
 
-📂 Dataset
-Source: IBM Sample Dataset – Telco Customer Churn
-File: WA_Fn-UseC_-Telco-Customer-Churn.csv
-Records: ~7,043 customers
-Target Variable: Churn (Yes / No)
+Dataset
+IBM Telco Customer Churn (Kaggle): ~7,043 customers, target variable Churn (Yes/No).
 
+Workflow
+Data Cleaning → EDA → Feature Engineering → Handling Class Imbalance → Model Training & Comparison → Evaluation → Prediction Pipeline
 
-🔍 Project Workflow
-Data Loading → Cleaning → EDA → Feature Engineering → Modeling → Evaluation → Prediction
-1. Data Cleaning
-Converted TotalCharges from object to numeric
-Dropped rows with missing values in TotalCharges
-Removed customerID (non-informative column)
+1. Data cleaning
+Converted TotalCharges from object to numeric, dropped rows with missing values
+Removed customerID (non-informative)
+2. Exploratory Data Analysis
+Churn distribution, churn by contract type, monthly charges vs. churn, tenure vs. churn, correlation heatmap.
 
-2. Exploratory Data Analysis (EDA)
-Churn distribution plot
-Churn by contract type
-Monthly charges vs churn (KDE histogram)
-Tenure by churn (boxplot)
-Correlation heatmap
+Key insights:
+The large majority of churned customers were on month-to-month contracts, versus far lower churn on one- or two-year contracts
+Senior citizens churn at a noticeably higher rate than non-senior customers
+[Add 1-2 more from your EDA charts — e.g. churn vs. internet service type, or churn vs. tenure]
+3. Feature engineering
+Label encoding applied to all categorical columns; encoders saved to encoders.pkl for reuse at prediction time.
 
-3. Key Insights
-A large majority of churned customers were on month-to-month contracts
-Senior citizens have a noticeably higher churn rate than non-senior customers
+4. Handling class imbalance
+Applied SMOTE (Synthetic Minority Oversampling Technique) on the training data, since churned customers are a minority class and a model trained on imbalanced data would under-predict churn.
 
-4. Feature Engineering
-
-Label encoding applied to all categorical columns
-Encoders saved to encoders.pkl for reuse in deployment
-
-5. Handling Class Imbalance
-
-Applied SMOTE (Synthetic Minority Oversampling Technique) on training data to balance churn vs non-churn classes
-
-6. Model Training & Comparison
+5. Model training & comparison
 Three models were evaluated using 5-fold cross-validation:
-ModelCV AccuracyDecision Tree—Random Forest✅ BestXGBoost—
-Random Forest was selected as the final model.
 
-7. Model Evaluation
-Accuracy Score
-Confusion Matrix
-Classification Report
-ROC-AUC Score
-ROC Curve plot
-Top 10 Feature Importances (bar chart)
+Model	CV Accuracy
+Decision Tree	78%
+Random Forest	84% ✅ Selected
+XGBoost	84%
 
+Random Forest and XGBoost tied on cross-validation accuracy; Random Forest was selected as the final model for its simpler tuning and interpretable feature importances.
 
-🤖 Prediction Pipeline
-The saved model (customer_churn_model.pkl) accepts a new customer's details and predicts:
+6. Model evaluation (on the test set)
+Metric	Score
+Accuracy	76.5%
+ROC-AUC	0.81
+Precision (Churn class)	56%
+Recall (Churn class)	57%
 
-Churn / No Churn
-Prediction probability
+Recall on the churn class matters most here: missing an actual churner (false negative) costs more than flagging a loyal customer by mistake, since the cost of a retention offer is much lower than the cost of losing the customer. At 57% recall, the model catches just over half of actual churners — a reasonable starting point, but there's room to improve: SMOTE plus hyperparameter tuning (e.g. class weighting, threshold adjustment) could push recall higher, since the current 0.5 probability threshold trades off some recall for overall accuracy.
 
-Example input fields: gender, tenure, Contract, MonthlyCharges, InternetService, etc.
+Top predictive features: tenure, MonthlyCharges, TotalCharges, and Contract type were the strongest predictors of churn.
 
-🛠️ Tech Stack
-Category           | Libraries 
-Data Manipulation  | pandas, numpy 
-Visualization      | matplotlib, seaborn 
-Machine Learning   | scikit-learn (Decision Tree, Random Forest)
-Boosting           | xgboost 
-Imbalance Handling | imbalanced-learn (SMOTE) 
-Model Persistence  | pickle 
+Prediction pipeline
 
+The saved model (customer_churn_model.pkl) takes a new customer's details (gender, tenure, contract type, monthly charges, internet service, etc.) and returns a churn prediction with probability, so it can be plugged into a retention-targeting workflow.
 
-🚀 Getting Started
-1. Clone the repository
-bashgit clone https://github.com/KanakSharma0308/-Telecom-Customer-Churn-Analysis-Prediction
-cd churn-analysis
-2. Install dependencies
-bashpip install pandas numpy matplotlib seaborn scikit-learn xgboost imbalanced-learn
-3. Add the dataset
-Place WA_Fn-UseC_-Telco-Customer-Churn.csv in the project root directory.
-4. Run the notebook
-bashjupyter notebook churn_analysis.ipynb
+Recommendations
+Target month-to-month customers first. They churn at the highest rate — offer a discount for switching to a 1-year contract.
+Watch new customers closely. Low tenure is one of the top predictors of churn, so the first few months matter most for retention outreach.
+Prioritize by predicted probability, not just the Yes/No flag. Use the model's probability score to rank customers so retention budget goes to the highest-risk, highest-value customers first.
+Tech stack
+Category	Libraries
+Data manipulation	pandas, numpy
+Visualization	matplotlib, seaborn
+Machine learning	scikit-learn (Decision Tree, Random Forest)
+Boosting	xgboost
+Imbalance handling	imbalanced-learn (SMOTE)
+Model persistence	pickle
+Getting started
+bash
+git clone https://github.com/KanakSharma0308/telecom-customer-churn-analysis
+cd telecom-customer-churn-analysis
+pip install pandas numpy matplotlib seaborn scikit-learn xgboost imbalanced-learn
 
-📁 Project Structure
-churn-analysis/
-│
-├── churn_analysis.ipynb                      https://github.com/KanakSharma0308/-Telecom-Customer-Churn-Analysis-Prediction   
-├── WA_Fn-UseC_-Telco-Customer-Churn.csv      https://www.kaggle.com/datasets/blastchar/telco-customer-churn
-├── customer_churn_model.pkl           https://github.com/KanakSharma0308/-Telecom-Customer-Churn-Analysis-Prediction/blob/main/customer_churn_model%20(1).pkl     ├── encoders.pkl                       https://github.com/KanakSharma0308/-Telecom-Customer-Churn-Analysis-Prediction/blob/main/encoders.pkl
+Place WA_Fn-UseC_-Telco-Customer-Churn.csv (from the Kaggle link above) in the project root, then run:
+
+bash
+jupyter notebook churn_analysis.ipynb
+Project structure
+telecom-customer-churn-analysis/
+├── churn_analysis.ipynb        # full analysis and model training
+├── customer_churn_model.pkl    # saved trained model
+├── encoders.pkl                # saved label encoders
 └── README.md
-
-📊 Results
-
-The Random Forest classifier achieved strong performance on the test set
-High ROC-AUC score indicating good discrimination between churn and non-churn
-tenure, MonthlyCharges, TotalCharges, and Contract were among the top predictive features
-
